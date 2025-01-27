@@ -1,5 +1,7 @@
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
+import 'package:android_launchable_apps/models.dart';
+
 import 'android_launchable_apps_method_channel.dart';
 
 abstract class AndroidLaunchableAppsPlatform extends PlatformInterface {
@@ -25,5 +27,9 @@ abstract class AndroidLaunchableAppsPlatform extends PlatformInterface {
 
   Future<String?> getPlatformVersion() {
     throw UnimplementedError('platformVersion() has not been implemented.');
+  }
+
+  Future<List<AndroidAppInfo>> getLaunchableApplications() {
+    throw UnimplementedError('getLaunchableApplications() has not been implemented.');
   }
 }

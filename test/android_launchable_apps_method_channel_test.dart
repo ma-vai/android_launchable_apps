@@ -24,4 +24,10 @@ void main() {
   test('getPlatformVersion', () async {
     expect(await platform.getPlatformVersion(), '42');
   });
+
+  test('getLaunchableApplications', () async {
+    final apps = await platform.getLaunchableApplications();
+    final hasApps = apps.isNotEmpty;
+    expect(hasApps, true);
+  });
 }
