@@ -1,5 +1,5 @@
 name: android_launchable_apps
-description: "A new Flutter plugin project."
+description: "Flutter plugin that allows you to gather informatin for user launchable android apps."
 version: 0.0.1
 repository: https://github.com/ma-vai/android_launchable_apps
 
