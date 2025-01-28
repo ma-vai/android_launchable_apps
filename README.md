@@ -1,7 +1,7 @@
 # android_launchable_apps
 
-Flutter plugin that allows you to gather informatin for user launchable android apps.
-Apps found are ones that declare the MAIN intent and LAUNCHER category.
+Flutter plugin that allows you to gather information for user launchable android apps.
+Apps found are ones that declare a MAIN intent and LAUNCHER category.
 ```xml
     <queries>
         ...
