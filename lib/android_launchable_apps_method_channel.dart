@@ -13,7 +13,8 @@ class MethodChannelAndroidLaunchableApps extends AndroidLaunchableAppsPlatform {
 
   @override
   Future<String?> getPlatformVersion() async {
-    final version = await methodChannel.invokeMethod<String>('getPlatformVersion');
+    final version =
+        await methodChannel.invokeMethod<String>('getPlatformVersion');
     return version;
   }
 
@@ -21,9 +22,12 @@ class MethodChannelAndroidLaunchableApps extends AndroidLaunchableAppsPlatform {
   Future<List<AndroidAppInfo>> getLaunchableApplications() async {
     List<Map<Object?, Object?>>? data;
     try {
-      data = await methodChannel.invokeListMethod<Map<Object?, Object?>>('getLaunchableApplications');
+      data = await methodChannel
+          .invokeListMethod<Map<Object?, Object?>>('getLaunchableApplications');
     } on Exception catch (e) {
-      if (kDebugMode) debugPrint('Platform - Failed to getLaunchableApplications: ${e.toString()}');
+      if (kDebugMode)
+        debugPrint(
+            'Platform - Failed to getLaunchableApplications: ${e.toString()}');
       data = [];
     }
     data ??= [];

@@ -10,7 +10,8 @@ abstract class AndroidLaunchableAppsPlatform extends PlatformInterface {
 
   static final Object _token = Object();
 
-  static AndroidLaunchableAppsPlatform _instance = MethodChannelAndroidLaunchableApps();
+  static AndroidLaunchableAppsPlatform _instance =
+      MethodChannelAndroidLaunchableApps();
 
   /// The default instance of [AndroidLaunchableAppsPlatform] to use.
   ///
@@ -30,6 +31,7 @@ abstract class AndroidLaunchableAppsPlatform extends PlatformInterface {
   }
 
   Future<List<AndroidAppInfo>> getLaunchableApplications() {
-    throw UnimplementedError('getLaunchableApplications() has not been implemented.');
+    throw UnimplementedError(
+        'getLaunchableApplications() has not been implemented.');
   }
 }
