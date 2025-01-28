@@ -1,15 +1,15 @@
 # android_launchable_apps
 
-A new Flutter plugin project.
+Flutter plugin that allows you to gather informatin for user launchable android apps.
+Apps found are ones that declare the MAIN intent and LAUNCHER category.
+```xml
+    <queries>
+        ...
+        <intent>
+            <action android:name="android.intent.action.MAIN"/>
+            <category android:name="android.intent.category.LAUNCHER"/>
+        </intent>
+    </queries>
+```
 
 ## Getting Started
-
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/to/develop-plugins),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
