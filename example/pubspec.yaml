@@ -4,6 +4,7 @@ description: "Demonstrates how to use the android_launchable_apps plugin."
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 0.0.1
+repository: https://github.com/ma-vai/android_launchable_apps/tree/main/example
 
 environment:
   sdk: ^3.6.0
