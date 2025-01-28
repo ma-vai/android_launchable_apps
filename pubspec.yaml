@@ -1,11 +1,11 @@
 name: android_launchable_apps
 description: "A new Flutter plugin project."
 version: 0.0.1
-homepage:
+repository: https://github.com/ma-vai/android_launchable_apps
 
 environment:
   sdk: ^3.6.0
-  flutter: '>=3.3.0'
+  flutter: ">=3.3.0"
 
 dependencies:
   flutter:
