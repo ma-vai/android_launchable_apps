@@ -8,7 +8,9 @@ void main() {
   runApp(const MyApp());
 }
 
+/// Example application to display android user launchable apps
 class MyApp extends StatefulWidget {
+  /// Example application to display android user launchable apps
   const MyApp({super.key});
 
   @override

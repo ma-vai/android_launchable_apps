@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 
 import 'package:android_launchable_apps/models.dart';
 
-import 'android_launchable_apps_platform_interface.dart';
+import 'package:android_launchable_apps/android_launchable_apps_platform_interface.dart';
 
 /// An implementation of [AndroidLaunchableAppsPlatform] that uses method channels.
 class MethodChannelAndroidLaunchableApps extends AndroidLaunchableAppsPlatform {
@@ -25,9 +25,10 @@ class MethodChannelAndroidLaunchableApps extends AndroidLaunchableAppsPlatform {
       data = await methodChannel
           .invokeListMethod<Map<Object?, Object?>>('getLaunchableApplications');
     } on Exception catch (e) {
-      if (kDebugMode)
+      if (kDebugMode) {
         debugPrint(
             'Platform - Failed to getLaunchableApplications: ${e.toString()}');
+      }
       data = [];
     }
     data ??= [];
