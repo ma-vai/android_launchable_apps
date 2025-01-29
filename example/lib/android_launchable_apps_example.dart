@@ -1,7 +1,7 @@
+import 'package:android_launchable_apps/models.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-import 'package:flutter/services.dart';
 import 'package:android_launchable_apps/android_launchable_apps.dart';
 
 void main() {
@@ -18,35 +18,29 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
   final _androidLaunchableAppsPlugin = AndroidLaunchableApps();
+
+  bool isLoading = false;
+  List<AndroidAppInfo> apps = [];
 
   @override
   void initState() {
     super.initState();
-    initPlatformState();
+    _refreshApps();
   }
 
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    // We also handle the message potentially returning null.
-    try {
-      platformVersion =
-          await _androidLaunchableAppsPlugin.getPlatformVersion() ??
-              'Unknown platform version';
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
+  Future<void> _refreshApps() async {
+    setState(() {
+      isLoading = true;
+    });
 
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
+    final appList =
+        await _androidLaunchableAppsPlugin.getLaunchableApplications();
+    appList.sort((a, b) => a.displayName.compareTo(b.displayName));
 
     setState(() {
-      _platformVersion = platformVersion;
+      apps = appList;
+      isLoading = false;
     });
   }
 
@@ -55,12 +49,49 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: const Text('Launchable Apps Example'),
+          actions: [
+            IconButton(
+                tooltip: 'Refresh Apps',
+                onPressed: _refreshApps,
+                icon: const Icon(Icons.refresh_outlined)),
+          ],
         ),
-        body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: (isLoading)
+                ? const CircularProgressIndicator()
+                : _buildAppsUI(),
+          ),
         ),
       ),
+    );
+  }
+
+  Widget _buildAppsUI() {
+    return ListView.separated(
+      itemCount: apps.length,
+      separatorBuilder: (context, index) => const Divider(height: 20),
+      itemBuilder: (context, index) {
+        final app = apps[index];
+        return Row(
+          children: [
+            Image.memory(app.iconBytes, height: 35, width: 35),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(app.displayName,
+                      style: Theme.of(context).textTheme.labelLarge),
+                  Text(app.categoryName),
+                ],
+              ),
+            )
+          ],
+        );
+      },
     );
   }
 }

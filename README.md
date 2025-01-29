@@ -13,3 +13,7 @@ Apps found are ones that declare a MAIN intent and LAUNCHER category.
 ```
 
 ## Getting Started
+Simply call 
+```dart
+await AndroidLaunchableApps().getLaunchableApplications();
+```
