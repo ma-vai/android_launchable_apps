@@ -44,4 +44,41 @@ class MethodChannelAndroidLaunchableApps extends AndroidLaunchableAppsPlatform {
     }
     return apps;
   }
-}
+
+  /// Check if have permissions to query launchable apps usage data.
+  @override
+  Future<bool> isUsagePermissionGranted() async {
+    final hasPermissions =
+        await methodChannel.invokeMethod<bool>('isUsagePermissionGranted');
+    return hasPermissions ?? false;
+  }
+
+  /// Request permissions to query launchable apps usage data.
+  @override
+  Future<void> requestUsagePermission() async {
+    await methodChannel.invokeMethod('requestUsagePermission');
+  }
+
+  /// Queries events within a specified date range.
+  ///
+  /// Takes start and end dates as parameters and returns a Future that resolves
+  /// to a list of EventUsageInfo objects.
+  @override
+  Future<List<EventUsageInfo>> queryEvents(
+      DateTime startDate, DateTime endDate) async {
+    // Convert start and end dates to milliseconds since epoch.
+    int end = endDate.millisecondsSinceEpoch;
+    int start = startDate.millisecondsSinceEpoch;
+
+    // Prepare a map of the start and end times to send to the native method.
+    Map<String, int> interval = {'start': start, 'end': end};
+
+    // Call the native method and await the result.
+    List events = await methodChannel.invokeMethod('queryEvents', interval);
+
+    // Map the result to a list of EventUsageInfo objects.
+    List<EventUsageInfo> result =
+        events.map((item) => EventUsageInfo.fromMap(item)).toList();
+    return result;
+  }
+} // class

@@ -42,6 +42,17 @@ class AndroidLaunchableAppsPlugin: FlutterPlugin, MethodCallHandler {
           val data = getLaunchableApps()
           result.success(data)
         }
+        "isUsagePermissionGranted" -> {
+          result.success(Utils.isUsagePermissionGranted(context))
+        }
+        "requestUsagePermission" -> {
+          Utils.requestUsagePermission(context)
+        }
+        "queryEvents" -> {
+          val start: Long = call.argument<Long>("start") as Long
+          val end: Long = call.argument<Long>("end") as Long
+          result.success(UsageStats.queryEvents(context, start, end))
+        }
         else -> {
           result.notImplemented()
         }

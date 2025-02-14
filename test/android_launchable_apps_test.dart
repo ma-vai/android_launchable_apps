@@ -19,11 +19,38 @@ class MockAndroidLaunchableAppsPlatform
     await Future.delayed(const Duration(milliseconds: 100));
     return <AndroidAppInfo>[
       AndroidAppInfo(
-          packageName: 'example.app',
-          displayName: 'Example App',
-          categoryName: 'Other',
-          category: -1,
-          iconBytes: Uint8List(0)),
+        packageName: 'example.app',
+        displayName: 'Example App',
+        categoryName: 'Other',
+        category: -1,
+        iconBytes: Uint8List(0),
+      ),
+    ];
+  }
+
+  @override
+  Future<bool> isUsagePermissionGranted() async {
+    await Future.delayed(const Duration(milliseconds: 100));
+    return true;
+  }
+
+  @override
+  Future<void> requestUsagePermission() async {
+    await Future.delayed(const Duration(milliseconds: 100));
+  }
+
+  @override
+  Future<List<EventUsageInfo>> queryEvents(
+      DateTime startDate, DateTime endDate) async {
+    await Future.delayed(const Duration(milliseconds: 100));
+    return <EventUsageInfo>[
+      EventUsageInfo(
+        eventType: '1',
+        timeStamp: '1739575230000',
+        packageName: 'app.package',
+        className: 'app.classname',
+        shortcutId: 'app.shortcutId',
+      ),
     ];
   }
 }
@@ -37,12 +64,12 @@ void main() {
   });
 
   test('getPlatformVersion', () async {
-    AndroidLaunchableApps androidLaunchableAppsPlugin = AndroidLaunchableApps();
+    //AndroidLaunchableApps androidLaunchableAppsPlugin = AndroidLaunchableApps();
     MockAndroidLaunchableAppsPlatform fakePlatform =
         MockAndroidLaunchableAppsPlatform();
     AndroidLaunchableAppsPlatform.instance = fakePlatform;
 
-    expect(await androidLaunchableAppsPlugin.getPlatformVersion(), '42');
+    expect(await AndroidLaunchableApps.getPlatformVersion(), '42');
   });
 
   test('getLaunchableApplications', () async {
@@ -52,5 +79,31 @@ void main() {
     final apps = await fakePlatform.getLaunchableApplications();
     final hasApps = apps.isNotEmpty;
     expect(hasApps, true);
+  });
+
+  test('isUsagePermissionGranted', () async {
+    MockAndroidLaunchableAppsPlatform fakePlatform =
+        MockAndroidLaunchableAppsPlatform();
+
+    final hasPermission = await fakePlatform.isUsagePermissionGranted();
+    expect(hasPermission, true);
+  });
+
+  test('requestUsagePermission', () async {
+    MockAndroidLaunchableAppsPlatform fakePlatform =
+        MockAndroidLaunchableAppsPlatform();
+
+    await fakePlatform.requestUsagePermission();
+    expect(true, true);
+  });
+
+  test('requestUsagePermission', () async {
+    MockAndroidLaunchableAppsPlatform fakePlatform =
+        MockAndroidLaunchableAppsPlatform();
+
+    final stats =
+        await fakePlatform.queryEvents(DateTime.now(), DateTime.now());
+    final hasStats = stats.isNotEmpty;
+    expect(hasStats, true);
   });
 }

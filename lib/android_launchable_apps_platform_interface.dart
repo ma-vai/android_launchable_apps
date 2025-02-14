@@ -1,8 +1,7 @@
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
-import 'package:android_launchable_apps/models.dart';
-
 import 'package:android_launchable_apps/android_launchable_apps_method_channel.dart';
+import 'package:android_launchable_apps/models.dart';
 
 /// Interface definition for AndroidLaunchableAppsPlatform
 abstract class AndroidLaunchableAppsPlatform extends PlatformInterface {
@@ -38,5 +37,28 @@ abstract class AndroidLaunchableAppsPlatform extends PlatformInterface {
   Future<List<AndroidAppInfo>> getLaunchableApplications() {
     throw UnimplementedError(
         'getLaunchableApplications() has not been implemented.');
+  }
+
+  /// Check if have permissions to query launchable apps usage data.
+  /// Must be overridden by platorm implementations.
+  Future<bool> isUsagePermissionGranted() {
+    throw UnimplementedError(
+        'isUsagePermissionGranted() has not been implemented.');
+  }
+
+  /// Request permissions to query launchable apps usage data.
+  /// Must be overridden by platorm implementations.
+  Future<void> requestUsagePermission() {
+    throw UnimplementedError(
+        'requestUsagePermission() has not been implemented.');
+  }
+
+  /// Queries events within a specified date range.
+  ///
+  /// Takes start and end dates as parameters and returns a Future that resolves
+  /// to a list of EventUsageInfo objects.
+  Future<List<EventUsageInfo>> queryEvents(
+      DateTime startDate, DateTime endDate) {
+    throw UnimplementedError('queryEvents() has not been implemented.');
   }
 }
